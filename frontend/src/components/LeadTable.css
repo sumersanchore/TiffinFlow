@@ -1,0 +1,72 @@
+.table-scroll {
+  max-width: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.directory-table {
+  min-width: 100%;
+}
+
+.table-scroll-hint {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .directory-table {
+    min-width: 1050px;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-scroll {
+    max-height: 53vh;
+    touch-action: pan-x pan-y;
+  }
+
+  .table-scroll-hint {
+    display: block;
+    padding: 7px 10px;
+    border-bottom: 1px solid #edf0f4;
+    background: #fff;
+    color: #63738a;
+    font-size: 11px;
+  }
+
+  .directory-table {
+    min-width: 980px;
+    font-size: 12px;
+  }
+
+  .directory-table th,
+  .directory-table td {
+    padding-inline: 9px;
+  }
+
+  .directory-table th button {
+    min-height: 38px;
+  }
+
+  .directory-table td.col-fullAddress {
+    min-width: 190px;
+    max-width: 245px;
+  }
+
+  .directory-table .brand-cell {
+    min-width: 155px;
+    max-width: 220px;
+  }
+
+  .directory-table td.action-col {
+    position: sticky;
+    right: 0;
+    z-index: 2;
+  }
+
+  .directory-table th.action-col {
+    position: sticky;
+    right: 0;
+    z-index: 4;
+  }
+}

@@ -58,3 +58,9 @@ SHEH - GSC (1).txt
 SHEH - GTM (1).txt
 SHEH - MS Clarity.txt
 SHEH - GA4.txt
+
+# Local database, source backups, and private import workbooks
+.local/
+data/*.xls*
+test-results/
+playwright-report/

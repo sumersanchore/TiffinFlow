@@ -1,0 +1,7 @@
+const {spawnSync} = require('node:child_process')
+const dotenv = require('dotenv')
+if(process.env.NODE_ENV!=='production') dotenv.config({path:'.env.development.local',quiet:true})
+dotenv.config({quiet:true})
+const cli = require.resolve('prisma/build/index.js')
+const result=spawnSync(process.execPath,[cli,'migrate','deploy','--schema','backend/prisma/schema.prisma'],{stdio:'inherit'})
+process.exit(result.status ?? 1)

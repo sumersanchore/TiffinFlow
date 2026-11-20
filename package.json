@@ -1,0 +1,78 @@
+{
+  "name": "manufacturer-leads",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "tsx watch backend/src/server.ts",
+    "dev:frontend": "vite frontend --config frontend/vite.config.mts",
+    "build": "npm run build:backend && npm run build:frontend",
+    "start": "node backend/dist/backend/src/server.js",
+    "db:migrate": "node scripts/migrate.cjs",
+    "db:backfill": "tsx backend/src/scripts/backfill.ts",
+    "db:seed": "tsx backend/src/scripts/seed.ts",
+    "import:initial": "tsx backend/src/scripts/import.ts",
+    "test": "tsx tests/run.ts",
+    "test:ui": "tsx tests/run.ts --ui",
+    "build:backend": "tsc -p backend/tsconfig.json",
+    "build:frontend": "tsc -p frontend/tsconfig.json && vite build frontend --config frontend/vite.config.mts",
+    "postinstall": "prisma generate --schema backend/prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@types/pg": "^8.15.0",
+    "concurrently": "^9.2.0",
+    "pg": "^8.16.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.10.0",
+    "prisma": "6.19.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.1.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.19",
+    "vite": "^7.3.0"
+  },
+  "description": "Manufacturer lead directory with Excel import and PostgreSQL persistence",
+  "dependencies": {
+    "@prisma/client": "6.19.3",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.1.1",
+    "xlsx": "file:vendor/xlsx-0.20.3.tgz",
+    "yauzl": "^3.3.0",
+    "zod": "^4.6.6",
+    "@fontsource-variable/dm-sans": "^5.2.0",
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@tanstack/react-query": "^5.90.0",
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.67.0",
+    "react-router-dom": "^7.10.0",
+    "sonner": "^2.0.7"
+  },
+  "overrides": {
+    "@prisma/config": {
+      "deepmerge-ts": "8.0.2",
+      "effect": "3.22.5"
+    }
+  }
+}

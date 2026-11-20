@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+model Admin {
+  id String @id @default(uuid())
+  email String @unique
+  phone String @unique
+  passwordHash String
+  role String @default("SUPER_ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sessions Session[]
+  imports ImportHistory[]
+}
+model Session {
+  id String @id @default(uuid())
+  adminId String
+  admin Admin @relation(fields:[adminId], references:[id], onDelete:Cascade)
+  expiresAt DateTime
+  @@index([expiresAt])
+}
+model Lead {
+  id String @id @default(uuid())
+  searchId String @unique
+  brandName String
+  brandKey String
+  phoneKey String?
+  whatsappKey String?
+  websiteKey String?
+  category String?
+  area String?
+  city String?
+  contactPerson String?
+  phoneNumber String?
+  whatsapp String?
+  email String?
+  website String?
+  fullAddress String?
+  status String @default("Not Started")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([brandKey])
+  @@index([brandName])
+  @@index([phoneKey])
+  @@index([whatsappKey])
+  @@index([websiteKey])
+  @@index([category])
+  @@index([city])
+  @@index([status])
+}
+model Category {
+  id String @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now())
+}
+model ImportHistory {
+  id String @id @default(uuid())
+  filename String
+  totalRows Int
+  importedRows Int @default(0)
+  duplicateRows Int @default(0)
+  updatedRows Int @default(0)
+  failedRows Int @default(0)
+  reviewedRows Int @default(0)
+  processed Int @default(0)
+  state String @default("preview")
+  importedBy String
+  admin Admin @relation(fields:[importedBy], references:[id])
+  createdAt DateTime @default(now())
+  error String?
+  categories String[]
+  rows ImportRow[]
+  @@index([importedBy, createdAt])
+  @@index([state])
+}
+model ImportRow {
+  jobId String
+  job ImportHistory @relation(fields:[jobId],references:[id],onDelete:Cascade)
+  rowNumber Int
+  values Json
+  kind String
+  reason String?
+  match Json?
+  allowDistinct Boolean @default(false)
+  @@id([jobId,rowNumber])
+  @@index([jobId,kind])
+}
