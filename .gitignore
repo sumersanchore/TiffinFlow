@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+apps/api/dist/
+apps/web/.next/
+database/dist/
+
+# Environment files — NEVER commit secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+apps/api/.env*
+apps/web/.env*
+database/.env*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+
+# Drizzle generated
+database/.drizzle/
+
+# Test coverage
+coverage/
+
+# Turbo cache (legacy)
+.turbo/
+
+# Temp
+*.tmp
+*.temp
+!.env.example
+SHEH - GSC (1).txt
+SHEH - GTM (1).txt
+SHEH - MS Clarity.txt
+SHEH - GA4.txt
