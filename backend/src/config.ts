@@ -3,12 +3,14 @@ import fs from 'node:fs'
 import dotenv from 'dotenv'
 import {z} from 'zod'
 
-// Locate the workspace from both the source tree and the compiled server.
-let root = __dirname
-while (!fs.existsSync(path.join(root, 'backend/prisma/schema.prisma'))) {
-  const parent = path.dirname(root)
-  if (parent === root) throw new Error('Manufacturer Leads workspace is missing')
-  root = parent
+// Vercel bundles the function without the Prisma schema used for local root discovery.
+let root = process.env.VERCEL ? path.resolve(__dirname, '../..') : __dirname
+if (!process.env.VERCEL) {
+  while (!fs.existsSync(path.join(root, 'backend/prisma/schema.prisma'))) {
+    const parent = path.dirname(root)
+    if (parent === root) throw new Error('Manufacturer Leads workspace is missing')
+    root = parent
+  }
 }
 export const projectRoot = root
 if(process.env.NODE_ENV!=='production') {
